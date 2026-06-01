@@ -1,6 +1,6 @@
 ﻿import sys, os, time, threading
 
-# Redirect stdout/stderr to log file (safe with pythonw.exe)
+# Redirect stdout/stderr to log file (safe with pythonw.exe py)
 # Use user's temp dir for log when frozen, project dir when developing
 if getattr(sys, 'frozen', False):
     _log_dir = os.path.join(os.environ.get('TEMP', os.path.expanduser('~')), "YTubeAccel")
