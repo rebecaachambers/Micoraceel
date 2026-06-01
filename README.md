@@ -27,10 +27,3 @@ Download the latest release from the [Releases page](https://github.com/rebecaac
    - Start xray-core with load balancing
    - Enable system proxy
 4. Right-click the tray icon to exit (clears all proxy settings)
-
-## Build from Source
-
-```bash
-pip install pyinstaller
-pyinstaller --onefile --noconsole --add-data "xray-core;xray-core" --name "Micoraceel" app.py
-```
