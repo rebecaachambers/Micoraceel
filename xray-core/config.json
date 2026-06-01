@@ -1,0 +1,244 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "udp": true
+      },
+      "tag": "socks-in"
+    },
+    {
+      "port": 10809,
+      "protocol": "http",
+      "tag": "http-in"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "104.26.3.133",
+            "port": 2087,
+            "users": [
+              {
+                "id": "890d185a-c8e6-43e0-a8bd-7d848555466a",
+                "encryption": "none",
+                "flow": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/task/streams/upload",
+          "headers": {
+            "Host": "vps.azena.dpdns.org"
+          }
+        },
+        "tlsSettings": {
+          "serverName": "vps.azena.dpdns.org",
+          "fingerprint": "chrome"
+        }
+      },
+      "tag": "node_104.26.3.133_2087"
+    },
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "172.67.66.3",
+            "port": 8443,
+            "users": [
+              {
+                "id": "890d185a-c8e6-43e0-a8bd-7d848555466a",
+                "encryption": "none",
+                "flow": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/member/novels/torrent",
+          "headers": {
+            "Host": "vps.azena.dpdns.org"
+          }
+        },
+        "tlsSettings": {
+          "serverName": "vps.azena.dpdns.org",
+          "fingerprint": "chrome"
+        }
+      },
+      "tag": "node_172.67.66.3_8443"
+    },
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "172.67.73.14",
+            "port": 2096,
+            "users": [
+              {
+                "id": "890d185a-c8e6-43e0-a8bd-7d848555466a",
+                "encryption": "none",
+                "flow": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/lessons/users/categories",
+          "headers": {
+            "Host": "vps.azena.dpdns.org"
+          }
+        },
+        "tlsSettings": {
+          "serverName": "vps.azena.dpdns.org",
+          "fingerprint": "chrome"
+        }
+      },
+      "tag": "node_172.67.73.14_2096"
+    },
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "104.26.3.114",
+            "port": 2083,
+            "users": [
+              {
+                "id": "890d185a-c8e6-43e0-a8bd-7d848555466a",
+                "encryption": "none",
+                "flow": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/favorite/url/picture",
+          "headers": {
+            "Host": "vps.azena.dpdns.org"
+          }
+        },
+        "tlsSettings": {
+          "serverName": "vps.azena.dpdns.org",
+          "fingerprint": "chrome"
+        }
+      },
+      "tag": "node_104.26.3.114_2083"
+    },
+    {
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "108.162.198.242",
+            "port": 2053,
+            "users": [
+              {
+                "id": "890d185a-c8e6-43e0-a8bd-7d848555466a",
+                "encryption": "none",
+                "flow": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/type/clips",
+          "headers": {
+            "Host": "vps.azena.dpdns.org"
+          }
+        },
+        "tlsSettings": {
+          "serverName": "vps.azena.dpdns.org",
+          "fingerprint": "chrome"
+        }
+      },
+      "tag": "node_108.162.198.242_2053"
+    },
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:cn"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "geoip:cn"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "port": "0-65535",
+        "balancerTag": "balancer"
+      }
+    ],
+    "balancers": [
+      {
+        "tag": "balancer",
+        "selector": [
+          "node_104.26.3.133_2087",
+          "node_172.67.66.3_8443",
+          "node_172.67.73.14_2096",
+          "node_104.26.3.114_2083",
+          "node_108.162.198.242_2053"
+        ],
+        "strategy": {
+          "type": "random"
+        }
+      }
+    ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "connIdle": 300
+      }
+    }
+  }
+}

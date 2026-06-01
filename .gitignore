@@ -1,0 +1,27 @@
+﻿# Build outputs
+Micoraceel.exe
+Micoraceel.spec
+build/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs & temp files
+*.log
+err.txt
+tray_debug.txt
+_tmp_val.py
+tray_test.py
+
+# xray-core binary files (auto-downloaded on first run)
+xray-core/xray.exe
+xray-core/wxray.exe
+xray-core/geoip.dat
+xray-core/geosite.dat
+
+# VS Code / IDE
+.vscode/
+.idea/
