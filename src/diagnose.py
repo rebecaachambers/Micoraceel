@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import ctypes
 import urllib.request
@@ -112,7 +112,7 @@ def auto_fix(issues):
 def run_diagnostics():
     """运行全面诊断 + 自动修复"""
     print("=" * 50)
-    print("  YouTube Accelerator - Self Diagnostics")
+    print("  Micoraceel - Self Diagnostics")
     print("=" * 50)
 
     issues = self_diagnose()
@@ -141,3 +141,4 @@ def run_diagnostics():
     else:
         print("\n[OK] No fix needed\n")
         return True
+

@@ -1,4 +1,4 @@
-import sys, os, time, threading
+﻿import sys, os, time, threading
 
 # Redirect stdout/stderr to log file (safe with pythonw.exe)
 # Use user's temp dir for log when frozen, project dir when developing
@@ -124,7 +124,7 @@ def main():
     app = App()
     threading.Thread(target=lambda: app.refresh_and_start(5, True), daemon=True).start()
     threading.Thread(target=schedule_loop, args=(app,), daemon=True).start()
-    tray = SystemTrayApp(tooltip="YouTube Accelerator")
+    tray = SystemTrayApp(tooltip="Micoraceel")
     app.tray = tray
     tray.set_on_exit(lambda: (app.stop_xray(), os._exit(0)))
     tray.run()
@@ -132,5 +132,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 

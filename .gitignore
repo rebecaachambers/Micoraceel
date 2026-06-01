@@ -25,3 +25,7 @@ xray-core/geosite.dat
 # VS Code / IDE
 .vscode/
 .idea/
+
+app_log.txt
+
+err.txt
