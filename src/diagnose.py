@@ -8,7 +8,7 @@ import subprocess
 
 
 def self_diagnose():
-    """全面自检返回问题列表"""
+    """全面自检 返回问题列表"""
     issues = []
 
     # 1. 检查 Python 版本

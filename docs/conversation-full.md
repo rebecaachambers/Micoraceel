@@ -24,7 +24,7 @@
 - 第二次提交: AGENTS.md（环境配置）
 - 第三次提交: docs/init-log.md + docs/conversation-full.md（完整对话记录）
 
-## 6. 项目结构
+## 5. 项目结构
 D:\codex-test\
 ├── README.md
 ├── AGENTS.md
@@ -32,6 +32,6 @@ D:\codex-test\
     ├── init-log.md
     └── conversation-full.md   # 本文件
 
-## 7. 待办
+## 6. 待办
 - 确定具体项目方向
 - 补充 AGENTS.md 中的编码规范
