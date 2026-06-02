@@ -1,6 +1,6 @@
-﻿import sys, os, time, threading
+import sys, os, time, threading
 
-# Redirect stdout/stderr to log file (safe with pythonw.exe py)
+# Redirect stdout/stderr to log file (safe with pythonw.exe)
 # Use user's temp dir for log when frozen, project dir when developing
 if getattr(sys, 'frozen', False):
     _log_dir = os.path.join(os.environ.get('TEMP', os.path.expanduser('~')), "YTubeAccel")
@@ -20,17 +20,32 @@ if not getattr(sys, 'frozen', False):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from src.subscription import get_all_nodes
 from src.speedtest import speedtest
-from src.xray_mgr import XrayManager
+from src.xray_mgr import XrayManager, XRAY_DIR
 from src.proxy_ctl import enable_system_proxy, disable_system_proxy, is_system_proxy_on
 from src.diagnose import run_diagnostics
 from src.tray import SystemTrayApp
+
+
+def _cleanup_runtime_files():
+    """清理运行期间产生的所有临时文件"""
+    paths = [
+        os.path.join(XRAY_DIR, "config.json"),
+        _log_path,
+    ]
+    for p in paths:
+        try:
+            if os.path.isfile(p):
+                os.remove(p)
+                print(f"  cleanup: removed {os.path.basename(p)}")
+        except:
+            pass
 
 
 def _error_popup_and_cleanup(exc_type, exc_value, exc_traceback):
     msg = str(exc_value) if exc_value else "Unknown error"
     print(f"[FATAL] {exc_type.__name__}: {msg}")
     disable_system_proxy()
-    pass # silent
+    _cleanup_runtime_files()
 
 def _global_excepthook(exc_type, exc_value, exc_traceback):
     _error_popup_and_cleanup(exc_type, exc_value, exc_traceback)
@@ -84,8 +99,6 @@ class App:
         if ok:
             self.xray_running = True
             enable_system_proxy()
-            if self.tray:
-                pass # silent mode
         else:
             self.xray_running = False
 
@@ -93,6 +106,7 @@ class App:
         disable_system_proxy()
         self.xray.stop()
         self.xray_running = False
+        _cleanup_runtime_files()
 
 
 def schedule_loop(app):
@@ -132,6 +146,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
